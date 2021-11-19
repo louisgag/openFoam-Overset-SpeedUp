@@ -1,0 +1,6 @@
+inverseDistancePushFrontCellCellStencil.C
+trackingInverseDistancePushFrontCellCellStencil.C
+waveMethodIters.C
+leastSquaresPushFrontCellCellStencil.C
+
+LIB = $(FOAM_USER_LIBBIN)/liboversetIDpushfront

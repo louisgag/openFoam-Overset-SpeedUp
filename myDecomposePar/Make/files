@@ -1,0 +1,12 @@
+myDecomposePar.C
+
+DECOMP=$(FOAM_UTILITIES)/parallelProcessing/decomposePar
+$(DECOMP)/domainDecomposition.C
+$(DECOMP)/domainDecompositionMesh.C
+$(DECOMP)/domainDecompositionDistribute.C
+$(DECOMP)/domainDecompositionWrite.C
+$(DECOMP)/domainDecompositionDryRun.C
+$(DECOMP)/domainDecompositionDryRunWrite.C
+$(DECOMP)/lagrangianFieldDecomposer.C
+
+EXE = $(FOAM_USER_APPBIN)/myDecomposePar
