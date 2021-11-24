@@ -1,0 +1,44 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2006                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      topoSetDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+actions
+(
+
+    {
+        name in;
+        type cellZoneSet;
+        action new;
+        source   boxToCell;
+        box     (-1.031 -1.031 -0.581)(1.031 1.031 0.581); // slightly inflated (5cm) to ensure we avoid superpositions between the overset search box and this zone
+    }
+
+    {
+        name out;
+        type    cellZoneSet;
+        action  new;
+        source  zoneToCell;
+        zones    (in);
+    }
+
+    {
+        name out;
+        type    cellZoneSet;
+        action  invert;
+    }
+
+);
+
+// ************************************************************************* //

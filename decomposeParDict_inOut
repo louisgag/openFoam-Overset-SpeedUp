@@ -1,0 +1,40 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2006                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      decomposeParDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+numberOfSubdomains  1024;
+method         scotch;
+
+regions
+{
+    out
+    {
+        numberOfSubdomains  34; // if you have symmetry in your mesh you may want to use multilevel + hierarchical and ensure both sides of the symmetry are separately decomposed
+        method  scotch;
+    }
+    in
+    {
+        numberOfSubdomains  990;
+        method  hierarchical; // scotch would also work well
+        order zxy;
+        hierarchicalCoeffs
+        {
+            n       (10 11 9);
+        }
+    }
+}
+
+
+// ************************************************************************* //
