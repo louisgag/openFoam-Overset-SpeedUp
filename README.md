@@ -24,7 +24,7 @@ Make a copy of your case and proceed as such:
 
 `cd system;for i in "c0" "c0_in" "bl0" "bl1" "bl2";do echo $i;cd $i;ln -sT ../decomposeParDict ./decomposeParDict;cd ..;done;cd .. # this is only an example where there is one background zone which gets divided into two regions (where interpolation can occur, c0_in, and where it can't occur, c0, along with the component meshes, bl1,2,3`
 
-`myDecomposePar -allRegions -copyZero -cellDist -force > log.decomp 2>&1  ## you need to defined a regionProperties file in the constant folder where you list the names of your regions and say they are all fluid regions, -cellDist is required otherwise globalProcIds will not be written... copyZero allows you to save the time required to write the fields, which you don't need yet`
+`myDecomposePar -allRegions -copyZero -cellDist -force > log.decomp 2>&1  ## you need to define a regionProperties file in the constant folder where you list the names of your regions and say they are all fluid regions, -cellDist is required otherwise globalProcIds will not be written... copyZero allows you to save the time required to write the fields, which you don't need yet`
 #### b) on the original case (where you will run the case and don't need myDecomposePar):
 copy constant/globalProcIds that was created by myDecomposePar and run
 
@@ -32,7 +32,23 @@ copy constant/globalProcIds that was created by myDecomposePar and run
 
 The decomposeParDictMan should be defined as such:
 ```
-numberOfSubdomains 1024; # your total number of processors
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v1906                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      decomposeParDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+numberOfSubdomains 1024; // your total number of processors
 
 method manual;
 manualCoeffs
